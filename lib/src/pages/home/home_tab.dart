@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:greengrosser/src/config/custom_colors.dart';
 import 'package:greengrosser/src/config/app_data.dart' as appData;
 import 'components/category_tile.dart';
+import 'components/item_tile.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -133,8 +134,8 @@ class _HomeTabState extends State<HomeTab> {
               ),
               itemCount: appData.items.length,
               itemBuilder: (_, index) {
-                return Container(
-                  color: Colors.red,
+                return ItemTile(
+                  item: appData.items[index],
                 );
               },
             ),

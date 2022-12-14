@@ -4,7 +4,7 @@ import 'package:greengrosser/src/pages/auth/sign_up_screen.dart';
 
 import '../../config/custom_colors.dart';
 import '../base/base_screen.dart';
-import 'components/custom_textfield.dart';
+import '../common_widgets/custom_textfield.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -69,7 +69,9 @@ class SignInScreen extends StatelessWidget {
                   )
                 ],
               )),
-              //formulário
+
+              //todo formulário
+
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 32,
@@ -83,19 +85,23 @@ class SignInScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    //Email
+                    //todo Email
+
                     const CustomTextField(
                       icon: Icons.email,
                       label: 'Email',
                     ),
 
-                    //Senha
+                    //todo Senha
+
                     const CustomTextField(
                       icon: Icons.lock,
                       label: 'Senha',
                       isSecret: true,
                     ),
-                    //Entrar
+
+                    //todo Entrar
+
                     SizedBox(
                       height: 50,
                       child: ElevatedButton(
@@ -117,7 +123,9 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    //Esqueceu a senha
+
+                    //todo Esqueceu a senha
+
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -129,7 +137,9 @@ class SignInScreen extends StatelessWidget {
                             ),
                           )),
                     ),
-                    //Divisor
+
+                    //todo Divisor
+
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Row(
@@ -153,7 +163,8 @@ class SignInScreen extends StatelessWidget {
                       ),
                     ),
 
-                    // Botão de novo usuário
+                    // todo Botão de novo usuário
+
                     SizedBox(
                       height: 50,
                       child: OutlinedButton(

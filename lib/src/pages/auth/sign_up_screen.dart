@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import '../../config/custom_colors.dart';
-import 'components/custom_textfield.dart';
+import '../common_widgets/custom_textfield.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
