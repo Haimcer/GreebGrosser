@@ -25,7 +25,8 @@ class _ProductScreenState extends State<ProductScreen> {
       backgroundColor: Colors.white.withAlpha(230),
       body: Stack(
         children: [
-          //TODO Conteúdo
+          //todo Conteúdo
+
           Column(children: [
             Expanded(
               child: Hero(
@@ -48,7 +49,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    //TODO Nome - Quantidade
+                    //todo Nome - Quantidade
 
                     Row(
                       children: [
@@ -75,7 +76,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       ],
                     ),
 
-                    //TODO Preço
+                    //todo Preço
 
                     Text(
                       utilsServices.priceToCurrency(widget.item.price),
@@ -86,7 +87,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ),
 
-                    //TODO Descrição
+                    //todo Descrição
 
                     Expanded(
                       child: SingleChildScrollView(
@@ -99,7 +100,8 @@ class _ProductScreenState extends State<ProductScreen> {
                       ),
                     ),
 
-                    //TODO Botão
+                    //todo Botão
+
                     SizedBox(
                       height: 55,
                       child: ElevatedButton.icon(

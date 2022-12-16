@@ -5,6 +5,7 @@ import 'package:greengrosser/src/services/utils_services.dart';
 import 'package:greengrosser/src/config/app_data.dart' as appData;
 
 import '../../models/cart_item_model.dart';
+import '../common_widgets/payment_dialog.dart';
 
 class CartTab extends StatefulWidget {
   const CartTab({super.key});
@@ -89,6 +90,17 @@ class _CartTabState extends State<CartTab> {
                 ),
                 onPressed: () async {
                   bool? result = await showOrderConfirmation();
+
+                  if (result ?? false) {
+                    showDialog(
+                      context: context,
+                      builder: (_) {
+                        return PaymentDialog(
+                          order: appData.orders.first,
+                        );
+                      },
+                    );
+                  }
                 },
                 child: const Text(
                   'Concluir pedido',
