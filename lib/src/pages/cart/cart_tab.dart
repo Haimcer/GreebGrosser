@@ -20,6 +20,8 @@ class _CartTabState extends State<CartTab> {
   void removeItemFromCart(CartItemModel cartItem) {
     setState(() {
       appData.cartItems.remove(cartItem);
+      utilsServices.showToast(
+          messege: '${cartItem.item.itemName} removido(a) do carrinho');
     });
   }
 
@@ -40,6 +42,8 @@ class _CartTabState extends State<CartTab> {
         title: const Text('Carrinho'),
       ),
       body: Column(children: [
+        //todo Lista de items do carrinho
+
         Expanded(
           child: ListView.builder(
               itemCount: appData.cartItems.length,
@@ -50,6 +54,9 @@ class _CartTabState extends State<CartTab> {
                 );
               }),
         ),
+
+        //todo Total e botão de concluir o pedido
+
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
@@ -100,6 +107,9 @@ class _CartTabState extends State<CartTab> {
                         );
                       },
                     );
+                  } else {
+                    utilsServices.showToast(
+                        messege: 'Pedido não confirmado', isError: true);
                   }
                 },
                 child: const Text(
