@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrosser/src/pages/common_widgets/app_name_widget.dart';
 
-import '../../config/custom_colors.dart';
-import '../../pages_routes/app_pages.dart';
-import '../common_widgets/custom_textfield.dart';
-import 'controller/auth_controller.dart';
+import '../../../config/custom_colors.dart';
+import '../../../pages_routes/app_pages.dart';
+import '../../common_widgets/custom_textfield.dart';
+import '../controller/auth_controller.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
