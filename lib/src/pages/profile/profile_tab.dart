@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:greengrosser/src/pages/common_widgets/custom_textfield.dart';
+import 'package:get/get.dart';
+import 'package:greengrosser/src/pages/auth/controller/auth_controller.dart';
+import 'package:greengrosser/src/pages/common_widgets/custom_text_field.dart';
 import 'package:greengrosser/src/config/app_data.dart' as appData;
 
 class ProfileTab extends StatefulWidget {
@@ -10,6 +12,7 @@ class ProfileTab extends StatefulWidget {
 }
 
 class _ProfileTabState extends State<ProfileTab> {
+  final authController = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +20,9 @@ class _ProfileTabState extends State<ProfileTab> {
         title: const Text('Perfil do usuário'),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                authController.signOut();
+              },
               icon: const Icon(
                 Icons.logout,
               )),
