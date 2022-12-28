@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:greengrosser/src/pages/cart/cart_tab.dart';
 import 'package:greengrosser/src/pages/profile/profile_tab.dart';
 
-import '../home/home_tab.dart';
+import '../home/view/home_tab.dart';
 import '../orders/order_tab.dart';
 
 class BaseScreen extends StatefulWidget {

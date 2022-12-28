@@ -5,7 +5,8 @@ import 'package:greengrosser/src/pages/product/product_screen.dart';
 import 'package:greengrosser/src/services/utils_services.dart';
 
 class ItemTile extends StatefulWidget {
-  ItemTile({super.key, required this.item, required this.cartAnimationMethod});
+  const ItemTile(
+      {super.key, required this.item, required this.cartAnimationMethod});
 
   final ItemModel item;
 
@@ -60,7 +61,7 @@ class _ItemTileState extends State<ItemTile> {
                   Expanded(
                       child: Hero(
                           tag: widget.item.imgUrl,
-                          child: Image.asset(
+                          child: Image.network(
                             widget.item.imgUrl,
                             key: imageGk,
                           ))),
