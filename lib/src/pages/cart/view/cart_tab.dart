@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:greengrosser/src/config/custom_colors.dart';
-import 'package:greengrosser/src/pages/cart/components/card_tile.dart';
+
 import 'package:greengrosser/src/services/utils_services.dart';
 import 'package:greengrosser/src/config/app_data.dart' as appData;
 
-import '../../models/cart_item_model.dart';
-import '../common_widgets/payment_dialog.dart';
+import '../../../models/cart_item_model.dart';
+import '../../common_widgets/payment_dialog.dart';
+import 'components/card_tile.dart';
 
 class CartTab extends StatefulWidget {
   const CartTab({super.key});
@@ -18,21 +19,22 @@ class _CartTabState extends State<CartTab> {
   final UtilsServices utilsServices = UtilsServices();
 
   void removeItemFromCart(CartItemModel cartItem) {
-    setState(() {
+    /*setState(() {
       appData.cartItems.remove(cartItem);
       utilsServices.showToast(
           message: '${cartItem.item.itemName} removido(a) do carrinho');
-    });
+    });*/
   }
 
   double cartTotalPrice() {
-    double total = 0;
+    /*double total = 0;
 
     for (var item in appData.cartItems) {
       total += item.totalPrice();
     }
 
-    return total;
+    return total;*/
+    return 0;
   }
 
   @override
@@ -46,16 +48,17 @@ class _CartTabState extends State<CartTab> {
 
         Expanded(
           child: ListView.builder(
-              itemCount: appData.cartItems.length,
+              itemCount: 0,
               itemBuilder: (_, index) {
-                return CartTile(
+                return Container();
+                /*return CartTile(
                   cartItem: appData.cartItems[index],
                   remove: removeItemFromCart,
-                );
+                );*/
               }),
         ),
 
-        //todo Total e botão de concluir o pedido
+        //*Total e botão de concluir o pedido
 
         Container(
           padding: const EdgeInsets.all(16),
