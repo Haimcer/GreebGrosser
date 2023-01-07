@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrosser/src/services/utils_services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -27,7 +28,7 @@ class PaymentDialog extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                //todo Titulo
+                //*Titulo
 
                 const Text(
                   'Pagamento com Pix',
@@ -37,15 +38,15 @@ class PaymentDialog extends StatelessWidget {
                   ),
                 ),
 
-                //todo QR Code
+                //*QR Code
 
-                QrImage(
-                  data: '16/12/2022',
-                  version: QrVersions.auto,
-                  size: 200.0,
+                Image.memory(
+                  utilsServices.decodeQrCodeImage(order.qrCodeImage),
+                  height: 200,
+                  width: 200,
                 ),
 
-                //todo Vencimento
+                //*Vencimento
 
                 Text(
                   'Vencimento: ${utilsServices.formatDateTime(order.overdueDateTime)}',
@@ -54,7 +55,7 @@ class PaymentDialog extends StatelessWidget {
                   ),
                 ),
 
-                //todo Total
+                //*Total
 
                 Text(
                   'Total: ${utilsServices.priceToCurrency(order.total)}',
@@ -64,7 +65,7 @@ class PaymentDialog extends StatelessWidget {
                   ),
                 ),
 
-                //todo Botão copia e cola
+                //*Botão copia e cola
 
                 OutlinedButton.icon(
                     style: OutlinedButton.styleFrom(
@@ -76,7 +77,10 @@ class PaymentDialog extends StatelessWidget {
                         color: Colors.green,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      FlutterClipboard.copy(order.copyAndPaste);
+                      utilsServices.showToast(message: 'Código copiado');
+                    },
                     icon: const Icon(
                       Icons.copy,
                       size: 15,

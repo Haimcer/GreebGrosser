@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrosser/src/models/item_model.dart';
 import 'package:greengrosser/src/pages/base/controller/navigation_controller.dart';
+import 'package:greengrosser/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrosser/src/pages/common_widgets/quantity_widget.dart';
 import 'package:greengrosser/src/services/utils_services.dart';
 
 import '../../config/custom_colors.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key, required this.item});
+  ProductScreen({
+    super.key,
+  });
 
-  final ItemModel item;
+  final ItemModel item = Get.arguments;
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -20,6 +23,8 @@ class _ProductScreenState extends State<ProductScreen> {
   final UtilsServices utilsServices = UtilsServices();
 
   int cartItemQuantity = 1;
+
+  final cartController = Get.find<CartController>();
   final navigationController = Get.find<NavigationController>();
   @override
   Widget build(BuildContext context) {
@@ -116,6 +121,11 @@ class _ProductScreenState extends State<ProductScreen> {
                           //* Fechar
 
                           Get.back();
+
+                          cartController.addItemToCart(
+                            item: widget.item,
+                            quantity: cartItemQuantity,
+                          );
 
                           //* Carrinho
 

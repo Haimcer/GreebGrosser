@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrosser/src/config/custom_colors.dart';
-
+import 'package:greengrosser/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrosser/src/services/utils_services.dart';
-import 'package:greengrosser/src/config/app_data.dart' as appData;
 
-import '../../../models/cart_item_model.dart';
 import '../../common_widgets/payment_dialog.dart';
 import 'components/card_tile.dart';
 
@@ -17,25 +16,9 @@ class CartTab extends StatefulWidget {
 
 class _CartTabState extends State<CartTab> {
   final UtilsServices utilsServices = UtilsServices();
+  final cartController = Get.find<CartController>();
 
-  void removeItemFromCart(CartItemModel cartItem) {
-    /*setState(() {
-      appData.cartItems.remove(cartItem);
-      utilsServices.showToast(
-          message: '${cartItem.item.itemName} removido(a) do carrinho');
-    });*/
-  }
-
-  double cartTotalPrice() {
-    /*double total = 0;
-
-    for (var item in appData.cartItems) {
-      total += item.totalPrice();
-    }
-
-    return total;*/
-    return 0;
-  }
+  //*Lista itens do carrinho
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +27,31 @@ class _CartTabState extends State<CartTab> {
         title: const Text('Carrinho'),
       ),
       body: Column(children: [
-        //todo Lista de items do carrinho
-
         Expanded(
-          child: ListView.builder(
-              itemCount: 0,
-              itemBuilder: (_, index) {
-                return Container();
-                /*return CartTile(
-                  cartItem: appData.cartItems[index],
-                  remove: removeItemFromCart,
-                );*/
-              }),
+          child: GetBuilder<CartController>(
+            builder: (controller) {
+              if (controller.cartItems.isEmpty) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.remove_shopping_cart,
+                      size: 40,
+                      color: CustomColors.customSwatchColor,
+                    ),
+                    const Text('Não há itens no carrinho'),
+                  ],
+                );
+              }
+              return ListView.builder(
+                  itemCount: controller.cartItems.length,
+                  itemBuilder: (_, index) {
+                    return CartTile(
+                      cartItem: controller.cartItems[index],
+                    );
+                  });
+            },
+          ),
         ),
 
         //*Total e botão de concluir o pedido
@@ -83,44 +79,49 @@ class _CartTabState extends State<CartTab> {
                   fontSize: 12,
                 ),
               ),
-              Text(
-                utilsServices.priceToCurrency(cartTotalPrice()),
-                style: TextStyle(
-                  fontSize: 23,
-                  color: CustomColors.customSwatchColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: CustomColors.customSwatchColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                ),
-                onPressed: () async {
-                  bool? result = await showOrderConfirmation();
-
-                  if (result ?? false) {
-                    showDialog(
-                      context: context,
-                      builder: (_) {
-                        return PaymentDialog(
-                          order: appData.orders.first,
-                        );
-                      },
-                    );
-                  } else {
-                    utilsServices.showToast(
-                        message: 'Pedido não confirmado', isError: true);
-                  }
+              GetBuilder<CartController>(
+                builder: (controller) {
+                  return Text(
+                    utilsServices.priceToCurrency(controller.cartTotalPrice()),
+                    style: TextStyle(
+                      fontSize: 23,
+                      color: CustomColors.customSwatchColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
                 },
-                child: const Text(
-                  'Concluir pedido',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
+              ),
+              GetBuilder<CartController>(
+                builder: (controller) {
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: CustomColors.customSwatchColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
+                    onPressed: controller.isCheckoutLoading
+                        ? null
+                        : () async {
+                            bool? result = await showOrderConfirmation();
+
+                            if (result ?? false) {
+                              cartController.checkoutCart();
+                            } else {
+                              utilsServices.showToast(
+                                  message: 'Pedido não confirmado');
+                            }
+                          },
+                    child: controller.isCheckoutLoading
+                        ? const CircularProgressIndicator()
+                        : const Text(
+                            'Concluir pedido',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                  );
+                },
               ),
             ],
           ),

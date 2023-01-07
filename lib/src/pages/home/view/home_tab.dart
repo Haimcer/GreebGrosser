@@ -4,9 +4,11 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrosser/src/config/custom_colors.dart';
+import 'package:greengrosser/src/pages/base/controller/navigation_controller.dart';
 import 'package:greengrosser/src/pages/common_widgets/custom_shimmer.dart';
 import 'package:greengrosser/src/pages/home/controller/home_controller.dart';
 import 'package:greengrosser/src/services/utils_services.dart';
+import '../../cart/controller/cart_controller.dart';
 import '../../common_widgets/app_name_widget.dart';
 import 'components/category_tile.dart';
 import 'components/item_tile.dart';
@@ -22,6 +24,8 @@ class _HomeTabState extends State<HomeTab> {
   GlobalKey<CartIconKey> globalKeyCartItems = GlobalKey<CartIconKey>();
 
   final searchController = TextEditingController();
+
+  final navigationController = Get.find<NavigationController>();
 
   late Function(GlobalKey) runAddToCardAnimation;
 
@@ -46,25 +50,32 @@ class _HomeTabState extends State<HomeTab> {
               top: 15,
               right: 15,
             ),
-            child: GestureDetector(
-              onTap: () {},
-              child: Badge(
-                badgeColor: CustomColors.customContrastColor,
-                badgeContent: const Text(
-                  '2',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.white,
+            child: GetBuilder<CartController>(
+              builder: (controller) {
+                return GestureDetector(
+                  onTap: () {
+                    navigationController.navigatePageView(NavigationTabs.cart);
+                  },
+                  child: Badge(
+                    badgeColor: CustomColors.customContrastColor,
+                    badgeContent: Text(
+                      controller.cartItems.length
+                          .toString() /*controller.getCartTotalItems().toString() - apresentar por unidade*/,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.white,
+                      ),
+                    ),
+                    child: AddToCartIcon(
+                      key: globalKeyCartItems,
+                      icon: Icon(
+                        Icons.shopping_cart,
+                        color: CustomColors.customSwatchColor,
+                      ),
+                    ),
                   ),
-                ),
-                child: AddToCartIcon(
-                  key: globalKeyCartItems,
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: CustomColors.customSwatchColor,
-                  ),
-                ),
-              ),
+                );
+              },
             ),
           )
         ],
@@ -181,6 +192,22 @@ class _HomeTabState extends State<HomeTab> {
                       ? Visibility(
                           visible: (controller.currentCategory?.items ?? [])
                               .isNotEmpty,
+                          replacement: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.search_off,
+                                  size: 80,
+                                  color: CustomColors.customSwatchColor,
+                                ),
+                                const Text(
+                                  'Não há itens para apresentar',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ]),
                           child: GridView.builder(
                             padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                             physics: const BouncingScrollPhysics(),
@@ -204,22 +231,6 @@ class _HomeTabState extends State<HomeTab> {
                               );
                             },
                           ),
-                          replacement: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.search_off,
-                                  size: 80,
-                                  color: CustomColors.customSwatchColor,
-                                ),
-                                const Text(
-                                  'Não há itens para apresentar',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ]),
                         )
                       : GridView.count(
                           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),

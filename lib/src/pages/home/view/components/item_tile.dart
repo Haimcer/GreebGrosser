@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrosser/src/config/custom_colors.dart';
 import 'package:greengrosser/src/models/item_model.dart';
+import 'package:greengrosser/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrosser/src/pages/product/product_screen.dart';
+import 'package:greengrosser/src/pages_routes/app_pages.dart';
 import 'package:greengrosser/src/services/utils_services.dart';
 
 class ItemTile extends StatefulWidget {
@@ -20,6 +23,7 @@ class _ItemTileState extends State<ItemTile> {
   final UtilsServices utilsServices = UtilsServices();
 
   final GlobalKey imageGk = GlobalKey();
+  final cartController = Get.find<CartController>();
 
   IconData tileIcon = Icons.add_shopping_cart_outlined;
 
@@ -39,11 +43,7 @@ class _ItemTileState extends State<ItemTile> {
 
         GestureDetector(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (c) {
-              return ProductScreen(
-                item: widget.item,
-              );
-            }));
+            Get.toNamed(PagesRoutes.productRoute, arguments: widget.item);
           },
           child: Card(
             elevation: 1,
@@ -76,7 +76,7 @@ class _ItemTileState extends State<ItemTile> {
                     ),
                   ),
 
-                  //todo Preço - Unidade
+                  //*reço - Unidade
 
                   Row(
                     children: [
@@ -104,7 +104,7 @@ class _ItemTileState extends State<ItemTile> {
           ),
         ),
 
-        //todo Botão add carrinho
+        //*Botão add carrinho
 
         Positioned(
           top: 4,
@@ -118,6 +118,8 @@ class _ItemTileState extends State<ItemTile> {
               child: InkWell(
                 onTap: () {
                   switchIcon();
+
+                  cartController.addItemToCart(item: widget.item);
                   widget.cartAnimationMethod(imageGk);
                 },
                 child: Ink(
