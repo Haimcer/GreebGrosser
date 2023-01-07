@@ -1,7 +1,7 @@
 import 'package:greengrosser/src/constants/endpoints.dart';
 import 'package:greengrosser/src/models/user_model.dart';
 import 'package:greengrosser/src/pages/auth/repository/auth_errors.dart'
-    as authErrors;
+    as auth_errors;
 import 'package:greengrosser/src/pages/auth/result/auth_result.dart';
 import 'package:greengrosser/src/services/http_manager.dart';
 
@@ -14,7 +14,7 @@ class AuthRepository {
 
       return AuthResult.success(user);
     } else {
-      return AuthResult.error(authErrors.authErrorsString(result['error']));
+      return AuthResult.error(auth_errors.authErrorsString(result['error']));
     }
   }
 

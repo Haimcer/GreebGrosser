@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:greengrosser/src/models/cart_item_model.dart';
 import 'package:greengrosser/src/models/order_model.dart';
 import 'package:greengrosser/src/pages/auth/controller/auth_controller.dart';

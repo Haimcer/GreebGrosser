@@ -1,10 +1,6 @@
-import 'dart:ui';
-
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:greengrosser/src/services/utils_services.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-
 import '../../models/order_model.dart';
 
 class PaymentDialog extends StatelessWidget {

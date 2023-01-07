@@ -4,7 +4,6 @@ import 'package:greengrosser/src/config/custom_colors.dart';
 import 'package:greengrosser/src/pages/cart/controller/cart_controller.dart';
 import 'package:greengrosser/src/services/utils_services.dart';
 
-import '../../common_widgets/payment_dialog.dart';
 import 'components/card_tile.dart';
 
 class CartTab extends StatefulWidget {
@@ -100,7 +99,8 @@ class _CartTabState extends State<CartTab> {
                         borderRadius: BorderRadius.circular(18),
                       ),
                     ),
-                    onPressed: controller.isCheckoutLoading
+                    onPressed: controller.isCheckoutLoading ||
+                            controller.cartItems.isEmpty
                         ? null
                         : () async {
                             bool? result = await showOrderConfirmation();

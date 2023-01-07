@@ -1,4 +1,3 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:greengrosser/src/constants/endpoints.dart';
 import 'package:greengrosser/src/models/order_model.dart';
 import 'package:greengrosser/src/pages/cart/cart_result/cart_result.dart';

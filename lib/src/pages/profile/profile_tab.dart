@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:greengrosser/src/pages/auth/controller/auth_controller.dart';
 import 'package:greengrosser/src/pages/common_widgets/custom_text_field.dart';
-import 'package:greengrosser/src/config/app_data.dart' as appData;
+
 import 'package:greengrosser/src/services/validators.dart';
 
 class ProfileTab extends StatefulWidget {

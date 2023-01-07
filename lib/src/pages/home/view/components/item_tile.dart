@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:greengrosser/src/config/custom_colors.dart';
 import 'package:greengrosser/src/models/item_model.dart';
 import 'package:greengrosser/src/pages/cart/controller/cart_controller.dart';
-import 'package:greengrosser/src/pages/product/product_screen.dart';
 import 'package:greengrosser/src/pages_routes/app_pages.dart';
 import 'package:greengrosser/src/services/utils_services.dart';
 
